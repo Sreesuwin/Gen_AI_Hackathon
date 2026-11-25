@@ -48,3 +48,7 @@ def test_numbers_inside_strings_allowed():
 
 def test_no_numbers():
     assert verify_numbers("I can't help with wiring; please call a licensed electrician.", [])["ok"]
+
+
+def test_ordinals_are_labels():
+    assert extract_numbers("between the 10th and 90th percentile, 4.66 kWh on the 1st day") == [4.66]

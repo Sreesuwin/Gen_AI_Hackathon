@@ -2,6 +2,7 @@
 
 How it works
  1. Pull every number out of the reply ("₹6,052", "52.6%", "24.8 years" -> 6052, 52.6, 24.8).
+    Ordinals such as "90th percentile" are labels, not values, and are skipped.
  2. Build the allowed set: every number in the tool outputs and tool arguments (walked
     recursively, including numbers inside strings such as dates and reasons), every number
     in the user's question, small integers 0-24 (hours, counts, list numbering) and years.
@@ -14,7 +15,7 @@ allowed set and is reported in "bad", so advisor.chat() asks the model to rewrit
 """
 import re
 
-NUM_RE = re.compile(r"(?<![\w.])\d[\d,]*(?:\.\d+)?")
+NUM_RE = re.compile(r"(?<![\w.])\d[\d,]*(?:\.\d+)?(?!\d|st\b|nd\b|rd\b|th\b)")
 SMALL_INTS = set(range(0, 25))
 YEARS = set(range(2000, 2036))
 

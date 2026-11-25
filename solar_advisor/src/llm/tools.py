@@ -38,6 +38,16 @@ def _recs(df, **_):
     return {"recommendations": generate_recommendations(df, kpis, detect_anomalies(df))}
 
 
+def _kpis(df, **_):
+    """KPIs plus the complementary shares, so the model never has to compute 100 - x."""
+    k = dict(compute_kpis(df))
+    if "self_consumption_pct" in k:
+        k["exported_share_pct"] = round(100.0 - k["self_consumption_pct"], 2)
+    if "self_sufficiency_pct" in k:
+        k["grid_share_pct"] = round(100.0 - k["self_sufficiency_pct"], 2)
+    return k
+
+
 MAX_ANOMALIES_FOR_LLM = 8
 
 
@@ -54,7 +64,7 @@ def _anomalies(df, **_):
 
 
 DISPATCH = {
-    "get_kpis": lambda df, **a: compute_kpis(df),
+    "get_kpis": _kpis,
     "get_recommendations": _recs,
     "get_anomalies": _anomalies,
     "forecast": lambda df, target="cons", horizon_days=14, **a: forecast(df, int(horizon_days), target),
