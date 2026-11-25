@@ -1,0 +1,13 @@
+# Python 3.11
+pandas>=2.2
+pyarrow>=16
+numpy>=1.26
+scikit-learn>=1.5
+plotly>=5.22
+streamlit>=1.38
+ollama>=0.4
+reportlab>=4.2
+pytest>=8
+# Shashikiran only (forecasting, CPU build is enough):
+#   uv pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   uv pip install chronos-forecasting

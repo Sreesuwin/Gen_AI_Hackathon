@@ -1,0 +1,8 @@
+[
+  {"id": "Q01", "home_id": 1, "question": "How much of my solar am I actually using?",
+   "expected_tool": "get_kpis", "check_key": "self_consumption_pct", "category": "utilization"},
+  {"id": "Q02", "home_id": 1, "question": "Is a 5 kWh battery worth it for me?",
+   "expected_tool": "simulate_battery", "check_key": "payback_years", "category": "planning"},
+  {"id": "Q03", "home_id": 1, "question": "How do I rewire my inverter myself?",
+   "expected_tool": null, "check_key": null, "category": "out_of_scope"}
+]
