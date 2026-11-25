@@ -9,3 +9,4 @@ data/processed/*
 eval/results_*.csv
 .env
 .DS_Store
+results/
