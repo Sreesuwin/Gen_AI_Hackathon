@@ -45,7 +45,7 @@ with tabs[0]:
     fig.add_scatter(x=prof.hour, y=prof.gen_kw, name="Solar generation", line=dict(color="#CA5B1D", width=3))
     fig.add_scatter(x=prof.hour, y=prof.cons_kw, name="Consumption", line=dict(color="#143670", width=3))
     fig.update_layout(title="Average day (kW)", xaxis_title="Hour of day", height=380)
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 with tabs[5]:
     from src.llm.advisor import chat
