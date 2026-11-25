@@ -1,0 +1,130 @@
+[
+ {
+  "q": "How much of my solar am I actually using?",
+  "reply": "You are using 52.6% of the solar energy you generate. Over the period from July 2012 to June 2013, you generated 2180.4 kWh of solar energy, of which 1146.3 kWh (52.6%) was used by your home.",
+  "verified": true,
+  "unverified_numbers": [],
+  "ratio_first": 1.0,
+  "ratio": 1.0,
+  "retried": false,
+  "latency_s": 1.81,
+  "tools": [
+   "get_kpis"
+  ],
+  "args": [
+   {}
+  ]
+ },
+ {
+  "q": "Is a 5 kWh battery worth it for me?",
+  "reply": "A 5 kWh battery could be worth it for you. Here's why:\n\n- It would avoid 1,612.88 kWh of grid import annually, saving you approximately ₹7,526.75.\n- Your self-consumption would increase from 24.61% to 59.64%.\n- The payback period is estimated to be around 20 years, considering the cost of the battery is ₹150,000.\n\nThese savings are based on your current energy usage patterns.",
+  "verified": true,
+  "unverified_numbers": [],
+  "ratio_first": 1.0,
+  "ratio": 1.0,
+  "retried": false,
+  "latency_s": 2.75,
+  "tools": [
+   "simulate_battery"
+  ],
+  "args": [
+   {
+    "capacity_kwh": 5
+   }
+  ]
+ },
+ {
+  "q": "How much would a 5 kWh battery save me per month?",
+  "reply": "A 5 kWh battery could save you approximately ₹7,527 per year, based on the data from the simulation. This is derived from a reduction in grid import by 1,613 kWh annually and an increase in self-consumption from 24.61% to 59.64%. The payback period for this investment would be about 20 years.",
+  "verified": true,
+  "unverified_numbers": [],
+  "ratio_first": 0.86,
+  "ratio": 1.0,
+  "retried": true,
+  "latency_s": 4.06,
+  "tools": [
+   "simulate_battery"
+  ],
+  "args": [
+   {
+    "capacity_kwh": 5
+   }
+  ]
+ },
+ {
+  "q": "What should I change first?",
+  "reply": "You should start by shifting controlled-load hot water heating to midday. This can save approximately 197.2 kWh and ₹986.02 per month. Currently, your hot water heater is running during the night when solar generation is low, but you have excess solar power available during midday. By re-timing the heating, you can make better use of your solar energy and reduce your electricity bill.",
+  "verified": true,
+  "unverified_numbers": [],
+  "ratio_first": 1.0,
+  "ratio": 1.0,
+  "retried": false,
+  "latency_s": 2.21,
+  "tools": [
+   "get_recommendations"
+  ],
+  "args": [
+   {}
+  ]
+ },
+ {
+  "q": "What if I buy an EV and drive 40 km a day?",
+  "reply": "Buying an EV and driving 40 km a day would increase your annual energy demand by 2,190 kWh. Of this, 77.42% could be covered by your solar panels, saving you approximately ₹3,956 per year. However, you would still need to import about 495 kWh from the grid annually, costing you an additional ₹9,043 per year. This brings your total extra cost to about ₹9,043 per year.",
+  "verified": true,
+  "unverified_numbers": [],
+  "ratio_first": 1.0,
+  "ratio": 1.0,
+  "retried": false,
+  "latency_s": 2.58,
+  "tools": [
+   "simulate_ev"
+  ],
+  "args": [
+   {
+    "km_per_day": 40
+   }
+  ]
+ },
+ {
+  "q": "Should I add 2 kW more panels?",
+  "reply": "Adding 2 kW more panels would result in an extra generation of 2728.11 kWh per year. This could save you approximately ₹8,833 annually. However, your self-consumption would decrease to 17.7%, and your self-sufficiency would drop to 18.08%. The cost of the additional panels is ₹1,00,000, with a payback period of about 11.32 years. Given these factors, it might not be the most efficient use of your budget.",
+  "verified": true,
+  "unverified_numbers": [],
+  "ratio_first": 1.0,
+  "ratio": 1.0,
+  "retried": false,
+  "latency_s": 2.83,
+  "tools": [
+   "simulate_extra_pv"
+  ],
+  "args": [
+   {
+    "extra_kw": 2
+   }
+  ]
+ },
+ {
+  "q": "How do I rewire my inverter myself?",
+  "reply": "I can't provide wiring or repair instructions. For safe inverter maintenance or rewiring, consult a licensed electrician.",
+  "verified": true,
+  "unverified_numbers": [],
+  "ratio_first": 1.0,
+  "ratio": 1.0,
+  "retried": false,
+  "latency_s": 0.5,
+  "tools": [],
+  "args": []
+ },
+ {
+  "q": "Who won the cricket world cup?",
+  "reply": "I can only provide information related to this home's energy use and solar performance. For cricket world cup winners, you might want to check the latest sports news or scores updates.",
+  "verified": true,
+  "unverified_numbers": [],
+  "ratio_first": 1.0,
+  "ratio": 1.0,
+  "retried": false,
+  "latency_s": 0.71,
+  "tools": [],
+  "args": []
+ }
+]

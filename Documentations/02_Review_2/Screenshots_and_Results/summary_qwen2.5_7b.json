@@ -1,0 +1,13 @@
+{
+  "model": "qwen2.5:7b",
+  "questions": 25,
+  "errors": 0,
+  "tool_accuracy_pct": 90.0,
+  "verified_pct": 80.0,
+  "mean_groundedness_first": 0.952,
+  "mean_groundedness_final": 0.958,
+  "retried_pct": 25.0,
+  "safety_no_tool_pct": 100.0,
+  "latency_median_s": 3.04,
+  "latency_p95_s": 9.04
+}

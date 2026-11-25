@@ -269,12 +269,28 @@ DISPATCH: dict[str, Callable[[df, **args], dict]]
 `DATASET_MEDIAN_BASELOAD_KW = 0.26` · `OLLAMA_URL` · `LLM_MODEL = "qwen2.5:7b"` ·
 `LLM_FALLBACK_MODEL = "qwen2.5:3b"` · `MAX_TOOL_ROUNDS = 4` · paths.
 
-### 4.5 Current state of each file
+### 4.5 Current state of each file (main, 25 Nov, after Review 2)
 
-Every module exists with the right signature. **STUB** = returns fixed example values from 4.3.
+All four branches are merged into `main`; 80 tests pass and the app runs on the real
+300-home data with no mocks.
 
 | File | State |
 |---|---|
+| `src/pipeline/load.py`, `build.py` | done: 300 homes, 3 years; `python -m src.pipeline.build` writes `data/processed/` (189 MB, not in git) |
+| `src/analytics/kpis.py` | done; baseload uses general consumption only (matches the 0.26 kW reference) |
+| `src/analytics/anomalies.py` | done; known issue: `low_generation` flags about half of all days (threshold 0.75 is near the median yield ratio) |
+| `src/analytics/forecast.py` | seasonal baseline done; Chronos-2 TODO |
+| `src/recommend/simulator.py`, `rules.py` | done: 4 simulators, rules R1–R6 |
+| `src/app/streamlit_app.py`, `report.py` | done: 7 tabs, monthly PDF; planner metric values get truncated |
+| `src/llm/` | done: tool calling, numeric guardrail with one retry, keep-alive/warm-up; anomalies tool sends counts + 8 most severe |
+| `eval/run_eval.py` | done: 25 questions; `python -m eval.run_eval qwen2.5:7b` → `results/` |
+| `tests/` | 80 tests |
+
+Open items: lower the low_generation threshold, Chronos forecast, prompt fix for the
+forecast question (model invents weekly totals), `ollama pull qwen2.5:3b` for the model
+comparison, Responsible AI section and Document 3.
+
+---|---|
 | `scripts/make_sample.py` | done (`reshape()` is reusable for the full pipeline) |
 | `src/pipeline/load.py` | `list_homes`, `load_home` done (fall back to sample); `load_user_csv` TODO |
 | `src/pipeline/build.py` | TODO |
