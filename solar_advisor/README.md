@@ -108,7 +108,7 @@ recommendation code never calls the LLM.
 
 ### 3.1 Environment (every laptop)
 ```bash
-git clone <repo-url> && cd solar_advisor
+git clone https://github.com/Sreesuwin/Gen_AI_Hackathon.git && cd Gen_AI_Hackathon/solar_advisor
 pip install uv                                   # or: pipx install uv
 uv venv --python 3.11 .venv && source .venv/bin/activate
 uv pip install -r requirements.txt
