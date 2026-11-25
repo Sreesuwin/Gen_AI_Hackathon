@@ -1,0 +1,1 @@
+# SolarSense Streamlit application package
