@@ -38,10 +38,25 @@ def _recs(df, **_):
     return {"recommendations": generate_recommendations(df, kpis, detect_anomalies(df))}
 
 
+MAX_ANOMALIES_FOR_LLM = 8
+
+
+def _anomalies(df, **_):
+    """Counts by type plus the most severe events only: a 3-year history can hold
+    hundreds of flagged days, far too much text for a 7B model's context."""
+    items = detect_anomalies(df)
+    counts = {}
+    for a in items:
+        counts[a["type"]] = counts.get(a["type"], 0) + 1
+    top = sorted(items, key=lambda a: a.get("score", 0), reverse=True)[:MAX_ANOMALIES_FOR_LLM]
+    return {"total_flagged_days": len(items), "count_by_type": counts,
+            "most_severe": sorted(top, key=lambda a: a["date"])}
+
+
 DISPATCH = {
     "get_kpis": lambda df, **a: compute_kpis(df),
     "get_recommendations": _recs,
-    "get_anomalies": lambda df, **a: {"anomalies": detect_anomalies(df)},
+    "get_anomalies": _anomalies,
     "forecast": lambda df, target="cons", horizon_days=14, **a: forecast(df, int(horizon_days), target),
     "simulate_battery": lambda df, capacity_kwh, **a: simulate_battery(df, float(capacity_kwh)),
     "simulate_extra_pv": lambda df, extra_kw, **a: simulate_extra_pv(df, float(extra_kw)),
