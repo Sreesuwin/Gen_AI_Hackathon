@@ -17,6 +17,7 @@ DEFAULT_DATASET_DIR = PROJECT_ROOT / "Dataset"
 DEFAULT_PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 DEFAULT_SAMPLE_PATH = PROJECT_ROOT / "data" / "sample" / "sample_home.parquet"
 DEFAULT_SAMPLE_CSV_NAME = "Solar home 2012-2013.csv"
+SAMPLE_HOME_META = {"Customer": [1], "Generator Capacity": [3.78], "Postcode": [2076]}
 
 HALFHOURLY_COLUMNS = [
     "home_id",
@@ -199,12 +200,16 @@ def list_homes() -> pd.DataFrame:
 
     if DEFAULT_SAMPLE_PATH.is_file():
         sample_df = pd.read_parquet(DEFAULT_SAMPLE_PATH)
-        src_csv = resolve_dataset_dir() / DEFAULT_SAMPLE_CSV_NAME
-        meta = pd.read_csv(
-            src_csv,
-            skiprows=1,
-            usecols=["Customer", "Generator Capacity", "Postcode"],
-        )
+        try:
+            src_csv = resolve_dataset_dir() / DEFAULT_SAMPLE_CSV_NAME
+            meta = pd.read_csv(
+                src_csv,
+                skiprows=1,
+                usecols=["Customer", "Generator Capacity", "Postcode"],
+            )
+        except FileNotFoundError:
+            # Raw CSVs not downloaded: use the known details of the sample home.
+            meta = pd.DataFrame(SAMPLE_HOME_META)
         home_ids = sample_df["home_id"].unique()
         meta = meta[meta["Customer"].isin(home_ids)].drop_duplicates("Customer")
         rows = []
