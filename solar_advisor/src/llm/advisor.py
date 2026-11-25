@@ -12,6 +12,7 @@ chat(home_id, history, question) -> {reply, tool_calls, verified, unverified_num
 Try:  python -m src.llm.advisor "Is a 5 kWh battery worth it for me?"
 """
 import json
+import os
 import re
 import time
 
@@ -24,6 +25,7 @@ from src.llm.tools import DISPATCH, TOOLS
 from src.pipeline.load import load_home
 
 HISTORY_TURNS = 6          # last N messages of history sent to the model
+KEEP_ALIVE = os.environ.get("LLM_KEEP_ALIVE", "2h")   # keep the model in GPU memory between questions
 _client = None
 
 
@@ -74,7 +76,7 @@ def _run_tool(df, name: str, args: dict) -> dict:
 
 
 def _llm(model, msgs, tools=None, temperature=None):
-    kw = {"model": model, "messages": msgs,
+    kw = {"model": model, "messages": msgs, "keep_alive": KEEP_ALIVE,
           "options": {"temperature": config.LLM_TEMPERATURE if temperature is None else temperature}}
     if tools:
         kw["tools"] = tools
@@ -130,6 +132,16 @@ def chat(home_id: int, history: list, question: str, model: str | None = None, d
     return {"reply": reply, "tool_calls": tool_log, "verified": check["ok"],
             "unverified_numbers": check["bad"], "latency_s": round(time.time() - t0, 2),
             "ratio": check["ratio"], "ratio_first": first["ratio"], "retried": retried, "model": model}
+
+
+def warm_up(model: str | None = None) -> float:
+    """Load the model into GPU memory now (call once at app start). Returns seconds taken."""
+    t0 = time.time()
+    try:
+        get_client().generate(model=model or config.LLM_MODEL, prompt="", keep_alive=KEEP_ALIVE)
+    except Exception:
+        pass
+    return round(time.time() - t0, 2)
 
 
 def monthly_report_text(home_id: int, month: str, model: str | None = None) -> str:
