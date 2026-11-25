@@ -1,11 +1,9 @@
-.venv/
-__pycache__/
-*.pyc
-.pytest_cache/
-data/raw/*
-!data/raw/.gitkeep
-data/processed/*
-!data/processed/.gitkeep
-eval/results_*.csv
-.env
+# raw dataset (57 MB zip) - share separately, never commit
+Dataset/
+# personal screenshots / chat images
+existing/
+*.zip
 .DS_Store
+__pycache__/
+.~lock.*#
+~$*
